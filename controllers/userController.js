@@ -13,10 +13,24 @@ exports.addUser = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
 	try {
-		const user = await User.find({})
-		res.status(200).json(user)
+		const users = await User.find({})
+		res.status(200).json(users)
 	} catch (error) {
 		res.status(500).json({message: error.message})
 	}
 }
+
+exports.loginUser = async (req, res) => {
+	const {login, password} = req.body
+	
+	try {
+		const user = await User.login(login, password)
+		res.status(200).json(user)
+	} catch (error) {
+		res.status(400).json({message: error.message})
+	}
+	
+}
+
+
 
